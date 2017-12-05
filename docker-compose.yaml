@@ -1,0 +1,19 @@
+version: "3"
+services:
+  localdb:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: fargate
+
+  express:
+    image: fargate-express
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: "LOCALDEV"
+    links:
+      - localdb        
